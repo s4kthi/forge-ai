@@ -1,0 +1,39 @@
+{
+  "name": "@forge-ai/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run db:generate && node --experimental-strip-types --watch src/server.ts",
+    "start": "node dist/server.js",
+    "dev:worker": "npm run db:generate && node --experimental-strip-types src/worker.ts",
+    "start:worker": "node dist/worker.js",
+    "build": "npm run db:generate && tsc",
+    "typecheck": "npm run db:generate && tsc --noEmit -p tsconfig.check.json",
+    "db:generate": "prisma generate",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:seed": "npm run db:generate && prisma db seed",
+    "db:claim-demo": "npm run db:generate && node --experimental-strip-types prisma/claim-demo.ts",
+    "test": "npm run db:generate && node --experimental-strip-types --test --test-concurrency=1 test/*.test.mjs",
+    "db:validate": "prisma validate"
+  },
+  "dependencies": {
+    "@forge-ai/shared": "0.1.0",
+    "@google/genai": "^3.0.0",
+    "@node-rs/argon2": "^2.2.2",
+    "@prisma/adapter-pg": "^7.0.0",
+    "@prisma/client": "^7.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.0",
+    "prisma": "^7.0.0"
+  }
+}

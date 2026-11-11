@@ -1,0 +1,1 @@
+ALTER TYPE "AgentRunMode" ADD VALUE 'ALEX_MARCUS';

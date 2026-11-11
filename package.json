@@ -1,31 +1,30 @@
 {
-  "name": "forge-ai-workforce",
-  "private": true,
+  "name": "forge-ai",
   "version": "0.1.0",
-  "type": "module",
+  "private": true,
+  "engines": { "node": "^22.12.0 || >=24.0.0" },
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.475.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.2",
-    "recharts": "^2.15.1",
-    "tailwind-merge": "^3.0.1"
+    "dev": "concurrently --kill-others --names api,web \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "npm run dev --workspace @forge-ai/api",
+    "dev:web": "npm run dev --workspace @forge-ai/web",
+    "dev:worker": "npm run dev:worker --workspace @forge-ai/api",
+    "start:worker": "npm run start:worker --workspace @forge-ai/api",
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "db:generate": "npm run db:generate --workspace @forge-ai/api",
+    "db:migrate:deploy": "npm run db:migrate:deploy --workspace @forge-ai/api",
+    "db:migrate:dev": "npm run db:migrate:dev --workspace @forge-ai/api --",
+    "db:seed": "npm run db:seed --workspace @forge-ai/api",
+    "db:claim-demo": "npm run db:claim-demo --workspace @forge-ai/api --",
+    "test": "npm test --workspace @forge-ai/api",
+    "test:web": "npm test --workspace @forge-ai/web",
+    "db:validate": "npm run db:validate --workspace @forge-ai/api",
+    "db:up": "docker compose --env-file .env -f infrastructure/compose.yaml up -d --wait",
+    "db:down": "docker compose --env-file .env -f infrastructure/compose.yaml down"
   },
   "devDependencies": {
-    "@types/node": "^22.13.4",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.2",
-    "tailwindcss": "^3.4.17",
-    "typescript": "~5.7.2",
-    "vite": "^6.1.0"
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
   }
 }
